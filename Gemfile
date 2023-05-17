@@ -78,6 +78,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # Use RSpec testing framework instead of Minitest [https://github.com/rspec/rspec-rails]
+  gem 'rspec-rails', '~> 6.0.0'
 end
 
 group :test do
@@ -85,4 +88,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+
+ # Use RSpec testing framework instead of Minitest [https://github.com/rspec/rspec-rails]
+  gem 'rspec-rails', '~> 6.0.0'
 end
