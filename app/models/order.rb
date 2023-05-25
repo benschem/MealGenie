@@ -1,4 +1,3 @@
 class Order < ApplicationRecord
-  has_many :meals
-  has_many :ingredients, through: :meals
+  has_and_belongs_to_many :meals
 end

@@ -26,6 +26,14 @@ RSpec.configure do |config|
     # ...rather than:
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+
+    # RSpec provides two different syntax styles
+    # for writing expectations: :should and :expect.
+    # The :should syntax was the original syntax used in RSpec, but
+    # the :expect syntax is now the recommended approach in RSpec
+    # as it provides a more explicit and readable way of expressing expectations,
+    # including improved error messages.
+    expectations.syntax = :expect
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
