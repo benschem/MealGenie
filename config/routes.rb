@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root to: 'pages#home'
 
-  # Defines the root path route ("/")
-  # root to "pages#home"
+  GET    /orders/:order_id/meals(.:format)    meals#index
+  POST   /orders/:order_id/meals(.:format)        meals#create
 
-  # resources
+  # resources :orders, only %i[index]
+
+  resources :orders do
+    resources :meals, only: %i[index new show create destroy]
+  end
+
+  resources :meals
 end
