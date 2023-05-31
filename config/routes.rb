@@ -1,14 +1,11 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
 
-  GET    /orders/:order_id/meals(.:format)    meals#index
-  POST   /orders/:order_id/meals(.:format)        meals#create
+  resources :orders, only: %i[new create destroy]
 
-  # resources :orders, only %i[index]
-
-  resources :orders do
-    resources :meals, only: %i[index new show create destroy]
+  resources :orders, only: %i[index show] do
+    resources :meals, only: %i[index new show create destroy], as: 'with_meals'
   end
 
-  resources :meals
+  resources :meals, only: %i[index show destroy], as: 'standalone_meals'
 end

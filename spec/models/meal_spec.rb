@@ -58,6 +58,8 @@ RSpec.describe Meal, type: :model do
 
   describe 'associations' do
     it 'belongs to an order' do
+      order = create(:order)
+      meal.orders << order
       expect(meal.orders.first).to be_truthy
       expect(meal.orders.first).to be_a(Order)
     end
@@ -66,6 +68,15 @@ RSpec.describe Meal, type: :model do
       expect(meal.ingredients.first).to be_truthy
       expect(meal.ingredients.first).to be_a(Ingredient)
       expect(meal.ingredients.count).to eq ingredients_count
+    end
+
+    it 'destroys dependent ingredients when meal is destroyed' do
+      meal = create(:meal, ingredients_count: 3)
+      ingredients = meal.ingredients.to_a
+
+      meal.destroy
+
+      expect(Ingredient.where(id: ingredients.map(&:id))).to be_empty
     end
   end
 end

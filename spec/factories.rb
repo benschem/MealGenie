@@ -2,13 +2,7 @@ require 'faker'
 
 FactoryBot.define do
   factory :order, class: 'Order' do
-    transient do
-      meals_count { 3 }
-    end
-
-    meals do
-      Array.new(meals_count) { association :meal, orders: [instance] }
-    end
+    # No attributes but the block needs to exist
   end
 
   factory :meal, class: 'Meal' do
@@ -18,16 +12,14 @@ FactoryBot.define do
     instructions { Faker::Lorem.paragraph }
 
     transient do
-      order_count { 1 }
-    end
-
-    orders { build_list :order, order_count, meals: [instance] }
-
-    transient do
+      order { nil }
       ingredients_count { 3 }
     end
 
-    ingredients { build_list :ingredient, ingredients_count, meal: instance }
+    after(:build) do |meal, evaluator|
+      meal.ingredients = build_list(:ingredient, evaluator.ingredients_count, meal: meal)
+      meal.orders << evaluator.order if evaluator.order.present?
+    end
   end
 
   factory :ingredient, class: 'Ingredient' do
@@ -35,6 +27,6 @@ FactoryBot.define do
     description { Faker::Food.description }
     amount { Faker::Number.between(from: 1, to: 100) }
     measurement_unit { %w[Grams Kilograms Cups Teaspoons Tablespoons].sample }
-    meal { association :meal, ingredients: [instance] }
+    meal
   end
 end

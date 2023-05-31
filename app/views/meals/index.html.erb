@@ -1,0 +1,20 @@
+<ul>
+  <% @meals.each do |meal| %>
+    <li><%= meal.name %></li>
+    <li><%= meal.prep_time %></li>
+    <li><%= meal.servings %></li>
+    <li>Instructions</li>
+    <li><%= meal.instructions %></li>
+    <li>Ingredients</li>
+    <ul>
+      <% meal.ingredients.each do |ingredient| %>
+        <li><%= ingredient.name %></li>
+        <ul>
+          <li><%= ingredient.description %></li>
+          <li><%= ingredient.amount %></li>
+          <li><%= ingredient.measurement_unit %></li>
+        </ul>
+      <% end %>
+    </ul>
+  <% end %>
+</ul>
