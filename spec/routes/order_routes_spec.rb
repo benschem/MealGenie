@@ -1,19 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe 'Routes for Orders', type: :routing do
-  it 'routes /orders to the orders controller, index action' do
+  it 'routes GET /orders to the orders controller, index action' do
     expect(get('/orders')).to route_to('orders#index')
   end
 
-  it 'routes /orders/:id to the orders controller, show action' do
+  it 'routes GET /orders/:id to the orders controller, show action' do
     expect(get('/orders/:id')).to route_to('orders#show', id: ':id')
   end
 
-  it 'routes /orders/:id/meals to the meals controller, index action' do
-    expect(get('/orders/:id/meals')).to route_to('meals#index', order_id: ':id')
+  it 'routes POST /orders to the orders controller, create action' do
+    expect(post('/orders')).to route_to('orders#create')
   end
 
-  it 'routes /orders/:order_id/meals/:meal_id to the meals controller, show action' do
-    expect(get('/orders/:order_id/meals/:meal_id')).to route_to('meals#show', order_id: ':order_id', id: ':meal_id')
+  it 'routes GET /orders/new to the orders controller, new action' do
+    expect(get('/orders/new')).to route_to('orders#new')
+  end
+
+  it 'routes DELETE /orders/:id to the orders controller, destroy action' do
+    expect(delete('/orders/:id')).to route_to('orders#destroy', id: ':id')
   end
 end

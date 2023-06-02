@@ -27,12 +27,12 @@ RSpec.describe "Requests for /orders", type: :request do
   describe "POST /orders" do
     it "creates a new Order" do
       expect {
-        post orders_path
+        post orders_path(number_of_meals: 1, dietary_requirements: [])
       }.to change(Order, :count).by(1)
     end
 
     it "redirects to the created order if succesful" do
-      post orders_path
+      post orders_path(number_of_meals: 1, dietary_requirements: [])
       expect(response).to redirect_to(order_with_meals_path(Order.last))
     end
   end

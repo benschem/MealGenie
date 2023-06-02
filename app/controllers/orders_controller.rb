@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new
+    @order = Order.new(order_params)
 
     if @order.save
       redirect_to order_with_meals_path(@order), notice: "Order successfully created."
@@ -31,5 +31,9 @@ class OrdersController < ApplicationController
 
   def set_order
     @order = Order.find(params[:id])
+  end
+
+  def order_params
+    params.require(:order).permit(:number_of_meals, dietary_requirements: [])
   end
 end

@@ -1,9 +1,20 @@
-<%= form_with model: @order do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :address %>
-  <%= f.text_field :address %>
-  <%= f.label :rating %>
-  <%= f.number_field :rating %>
-  <%= f.submit %>
+<h1>New order</h1>
+<% number_of_meals = 0 %>
+<% meal_filters = ['vegetarian', 'pescatarian', 'nut allergy'] %>
+
+<h2>Plan your meals</h2>
+<%= form_tag({controller: 'orders', action: 'create'}, method: 'post', class: '') do %>
+  <%= label_tag(:number_of_meals, "Number of meals") %>
+  <%= select_tag(:number_of_meals, options_for_select(0..14, nil), include_blank: true) %>
+
+  <h3>Dietary requirements</h3>
+  <% meal_filters.each do |filter| %>
+    <%= check_box_tag(:filters, filter) %>
+    <%= label_tag("filters_#{filter}", filter.capitalize) %>
+  <% end %>
+
+  <%= submit_tag("Choose your meals!") %>
 <% end %>
+
+<%# Example of passing params with a link %>
+<%# <%= link_to 'Choose meals!', orders_path(number_of_meals: number_of_meals, meal_filters: meal_filters), method: 'post' %>

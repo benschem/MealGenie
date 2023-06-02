@@ -2,7 +2,8 @@ require 'faker'
 
 FactoryBot.define do
   factory :order, class: 'Order' do
-    # No attributes but the block needs to exist
+    number_of_meals { Faker::Number.between(from: 1, to: 14) }
+    # dietary_reqirements {} # This is an empty array by default
   end
 
   factory :meal, class: 'Meal' do
