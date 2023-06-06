@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Requests for /meals', type: :request do
+RSpec.describe 'Meals', type: :request do
   subject(:meal) { create(:meal) }
   let(:order) { create(:order) }
   let(:valid_attributes) { attributes_for(:meal) }
